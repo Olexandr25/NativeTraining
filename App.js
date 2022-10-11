@@ -6,30 +6,29 @@
  * @flow strict-local
  */
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
-
 import {
   Colors,
   DebugInstructions,
   Header,
   LearnMoreLinks,
   ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+} from 'react-native/Libraries/NewAppScreen'
+import {
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+  useColorScheme,
+} from 'react-native'
+
+import React from 'react'
 
 /* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
  * LTI update could not be added via codemod */
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
+const Section = ({children, title}) => {
+  const isDarkMode = useColorScheme() === 'dark'
   return (
     <View style={styles.sectionContainer}>
       <Text
@@ -51,15 +50,15 @@ const Section = ({children, title}): Node => {
         {children}
       </Text>
     </View>
-  );
-};
+  )
+}
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+const App = () => {
+  const isDarkMode = useColorScheme() === 'dark'
 
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  }
 
   return (
     <SafeAreaView style={backgroundStyle}>
@@ -72,6 +71,31 @@ const App: () => Node = () => {
         style={backgroundStyle}>
         <Header />
         <View
+          style={{
+            backgroundColor: isDarkMode ? Colors.black : Colors.white,
+          }}>
+          <Text style={styles.customStyleBold}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleRegular}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleDimis}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleDimitri}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleBold}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleRegular}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleDimis}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleDimitri}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleBold}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleRegular}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleDimis}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleDimitri}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleBold}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleRegular}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleDimis}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleDimitri}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleBold}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleRegular}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleDimis}>Forest + Black Cat</Text>
+          <Text style={styles.customStyleDimitri}>Forest + Black Cat</Text>
+        </View>
+        {/* <View
           style={{
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}>
@@ -89,13 +113,33 @@ const App: () => Node = () => {
             Read the docs to discover what to do next:
           </Section>
           <LearnMoreLinks />
-        </View>
+        </View> */}
       </ScrollView>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
+  customStyleBold: {
+    fontSize: 32,
+    lineHeight: 48,
+    fontFamily: 'StardosStencil-Bold',
+  },
+  customStyleRegular: {
+    fontSize: 32,
+    lineHeight: 48,
+    fontFamily: 'StardosStencil-Regular',
+  },
+  customStyleDimis: {
+    fontSize: 42,
+    lineHeight: 48,
+    fontFamily: 'StardosStencil-Bold',
+  },
+  customStyleDimitri: {
+    fontSize: 42,
+    lineHeight: 48,
+    fontFamily: 'StardosStencil-Regular',
+  },
   sectionContainer: {
     marginTop: 32,
     paddingHorizontal: 24,
@@ -112,6 +156,6 @@ const styles = StyleSheet.create({
   highlight: {
     fontWeight: '700',
   },
-});
+})
 
-export default App;
+export default App
