@@ -7,51 +7,70 @@
  */
 
 import {
+  Button,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  useColorScheme,
+} from 'react-native'
+import {
   Colors,
   DebugInstructions,
   Header,
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen'
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  View,
-  useColorScheme,
-} from 'react-native'
 
+import { NavigationContainer } from '@react-navigation/native';
 import React from 'react'
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import {createNativeStackNavigator} from '@react-navigation/native-stack'
 
-/* $FlowFixMe[missing-local-annot] The type annotation(s) required by Flow's
- * LTI update could not be added via codemod */
-const Section = ({children, title}) => {
-  const isDarkMode = useColorScheme() === 'dark'
+const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
+
+const Feed = () => {
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>Feed</Text>
     </View>
   )
 }
+
+function HomeScreen(props) {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Tab.Screen name="Settings" component={Settings} />
+      <Tab.Screen name="Profile" component={Profile} />
+    </Tab.Navigator>
+  )
+}
+
+const Profile = ({navigation}) => {
+  return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>Oleksandr Voichyshyn</Text>
+      <Button title="Go to Feed" onPress={() => navigation.navigate('Feed')} />
+    </View>
+  )
+}
+
+const Settings = () => {
+  return (
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
+      <Text>Edit account</Text>
+      <Text>Change language</Text>
+    </View>
+  )
+}
+
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
@@ -61,81 +80,31 @@ const App = () => {
   }
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Text style={styles.customStyleBold}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleRegular}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleDimis}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleDimitri}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleBold}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleRegular}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleDimis}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleDimitri}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleBold}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleRegular}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleDimis}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleDimitri}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleBold}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleRegular}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleDimis}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleDimitri}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleBold}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleRegular}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleDimis}>Forest + Black Cat</Text>
-          <Text style={styles.customStyleDimitri}>Forest + Black Cat</Text>
-        </View>
-        {/* <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View> */}
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName="Home"
+        screenOptions={{
+          headerShown: true,
+        }}>
+        {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
+        <Stack.Screen
+          name="Home"
+          component={HomeScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="Feed" component={Feed} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 
 const styles = StyleSheet.create({
   customStyleBold: {
-    fontSize: 32,
-    lineHeight: 48,
-    fontFamily: 'StardosStencil-Bold',
-  },
-  customStyleRegular: {
-    fontSize: 32,
-    lineHeight: 48,
-    fontFamily: 'StardosStencil-Regular',
-  },
-  customStyleDimis: {
     fontSize: 42,
     lineHeight: 48,
     fontFamily: 'StardosStencil-Bold',
   },
-  customStyleDimitri: {
+  customStyleRegular: {
     fontSize: 42,
     lineHeight: 48,
     fontFamily: 'StardosStencil-Regular',
@@ -155,6 +124,9 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
+  },
+  textMarginRight: {
+    marginRight: 24,
   },
 })
 
