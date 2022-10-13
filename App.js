@@ -8,7 +8,6 @@
 
 import {
   Button,
-  SafeAreaView,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -24,8 +23,9 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen'
+import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context'
 
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native'
 import React from 'react'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 import {createNativeStackNavigator} from '@react-navigation/native-stack'
@@ -55,10 +55,18 @@ function HomeScreen(props) {
 
 const Profile = ({navigation}) => {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Oleksandr Voichyshyn</Text>
-      <Button title="Go to Feed" onPress={() => navigation.navigate('Feed')} />
-    </View>
+    <SafeAreaView
+      style={{flex: 1, justifyContent: 'space-between', alignItems: 'center'}}>
+      <View style={{alignItems: 'center'}}>
+        <Text>Oleksandr Voichyshyn</Text>
+        <Button
+          title="Go to Feed"
+          onPress={() => navigation.navigate('Feed')}
+        />
+      </View>
+      <Text>This is center text.</Text>
+      <Text>This is bottom text.</Text>
+    </SafeAreaView>
   )
 }
 
@@ -71,7 +79,6 @@ const Settings = () => {
   )
 }
 
-
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark'
 
@@ -80,21 +87,23 @@ const App = () => {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Home"
-        screenOptions={{
-          headerShown: true,
-        }}>
-        {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Feed" component={Feed} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Home"
+          screenOptions={{
+            headerShown: true,
+          }}>
+          {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen name="Feed" component={Feed} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaProvider>
   )
 }
 
